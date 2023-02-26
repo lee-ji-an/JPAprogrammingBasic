@@ -1,4 +1,4 @@
-package hellojpa;
+package jpabook.jpashop;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -18,15 +18,7 @@ public class JpaMain {
         tx.begin();
 
         try{
-            Member member = new Member();
-            member.setId(3L);
-            member.setName("HelloC");
-            em.persist(member);
-
-            Member findMember = em.find(Member.class, 1L);
-            findMember.setName("HelloJPA2");
-
-            tx.commit();    //정상적일 때 -> commit
+            tx.commit();    // 정상적일 때 -> commit  커밋하는 시점에 DB에 쿼리가 날라감
         } catch (Exception e) {
             //오류 발생시 -> rollback
             tx.rollback();
@@ -34,7 +26,6 @@ public class JpaMain {
             //내부적으로 database connection을 가지고 있어서 꼭 닫아줘야 함.
             em.close();
         }
-
         emf.close();
     }
 }
